@@ -49,7 +49,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-### Web Interface (Recommended)
+### Web Interface (currently not supported)
 
 Run the Gradio web application:
 ```bash
@@ -61,7 +61,7 @@ The interface will provide:
 2. **Fetch Reels**: Retrieve explore reels
 3. **Analyze**: Perform sentiment and content analysis with visualization
 
-### Command Line Interface
+### Command Line Interface(Recommended)
 
 Run analysis in CLI mode:
 ```bash
