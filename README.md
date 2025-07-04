@@ -29,7 +29,7 @@ instagram-reels-analysis/
 - **Visualization**: Interactive pie charts showing analysis results
 - **Web Interface**: User-friendly Gradio web application
 - **CLI Mode**: Command-line interface for batch processing
-
+-**Recommendation Engine**:Fetches and saves reels to the "Collab Reels" folder based on user's taste.
 ## Installation
 
 1. Clone the repository:
