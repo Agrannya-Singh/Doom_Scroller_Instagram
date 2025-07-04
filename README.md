@@ -61,6 +61,57 @@ The interface will provide:
 2. **Fetch Reels**: Retrieve explore reels
 3. **Analyze**: Perform sentiment and content analysis with visualization
 
+## Deployment Behavior: Temporary vs Permanent
+
+The Instagram Doom Scroller app exhibits different behavior between temporary Gradio deployments (local/CLI) and permanent Hugging Face deployments due to several technical and policy constraints:
+
+### Temporary Deployment (Local/Gradio CLI) Works Because:
+✅ **Local Network Environment**  
+   - Runs from your personal IP address which isn't flagged by Instagram's bot detection
+   - Maintains consistent session cookies from your authenticated browser
+
+✅ **Lower Rate Limits**  
+   - Instagram applies less strict rate limiting to residential IPs
+
+✅ **Full System Access**  
+   - Can access local browser profiles, saved sessions, and developer credentials
+
+✅ **No Sandbox Restrictions**  
+   - No security policies blocking automation tools
+
+### Permanent Deployment (Hugging Face) Fails Because:
+❌ **Cloud IP Restrictions**  
+   - Hugging Face servers use cloud provider IPs often flagged as bots
+   - Instagram blocks many datacenter IP ranges
+
+❌ **Meta Automation Policies**  
+   - Violates [Instagram's Terms](https://help.instagram.com/581066165581870) prohibiting:
+     - Automated data collection without API approval
+     - Headless/scripted login attempts
+
+❌ **Sandbox Limitations**  
+   - Hugging Face's containerized environment:
+     - Blocks certain automation libraries
+     - Restricts persistent login sessions
+     - Limits network-level customization
+
+❌ **Credential Security**  
+   - Permanent deployments shouldn't store personal login credentials
+   - Environment variables behave differently in cloud vs local
+
+### Technical Symptoms You'll Observe:
+- **Temporary Deployment**: Successful login → reel collection → sentiment analysis
+- **Permanent Deployment**:  
+  - UI loads but analysis fails silently
+  - Console shows `403 Forbidden` or `rate limited` errors
+  - Possible `AutomationDetected` warnings in logs
+
+### Recommended Solutions:
+1. Use Instagram's official [Graph API](https://developers.facebook.com/docs/instagram-api/) with approved permissions
+2. Switch to user-provided URLs instead of automated collection
+3. Implement a local proxy service (though this violates ToS)
+4. Use cached demo data for the permanent deployment
+
 ### Command Line Interface(Recommended)
 
 Run analysis in CLI mode:
